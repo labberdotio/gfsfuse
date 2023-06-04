@@ -1,0 +1,15 @@
+[Unit]
+Description=gfsmount
+
+[Service]
+# If using a non root user, then
+# make sure mount dir is writable as user
+User=gfs
+RestartSec=1
+Type=forking
+TimeoutStartSec=0
+Restart=always
+ExecStart=/gfsfuse/systemd_start_gfsfuse.sh 
+
+[Install]
+WantedBy=multi-user.target
