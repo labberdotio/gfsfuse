@@ -1,0 +1,11 @@
+
+future
+futures
+
+requests
+
+fusepy==3.0.1
+
+simplejson
+flatten_json
+addict

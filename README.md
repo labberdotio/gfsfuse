@@ -1,2 +1,3 @@
-# gfsfuse
-GFS fuse mounter
+
+# GFSFUSE
+GFSFUSE

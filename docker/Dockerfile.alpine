@@ -1,0 +1,19 @@
+FROM python:3.6.12-alpine3.11
+
+RUN apk update && \
+    apk add \
+        py3-pip \
+        py3-gobject3 \
+        libblockdev-dev \
+        py3-libblockdev \
+        py3-rtslib \
+        build-base \
+        udev 
+
+ADD . /gfsfuse
+RUN pip3 install -r /gfsfuse/requirements.txt
+# mount point
+RUN mkdir /gfs
+WORKDIR gfsfuse
+
+CMD ["bash", "/gfsfuse/docker_start_gfsfuse.sh"]
