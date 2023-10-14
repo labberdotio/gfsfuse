@@ -13,6 +13,12 @@ RUN apk update && \
 COPY . /gfsfuse
 RUN pip3 install -r /gfsfuse/requirements.txt
 
+# RUN addgroup --system --gid 1001 gfs
+RUN addgroup -S gfs -g 1001
+
+# RUN useradd --uid 1001 --gid 1001 gfs -p gfsgfs
+RUN adduser -S gfs -u 1001 -G gfs; echo 'gfs:gfsgfs' | chpasswd
+
 # ENV GFSAPI_HOST=10.88.88.183
 # ENV GFSAPI_USER=
 # ENV GFSAPI_PASSWORD=
