@@ -8,7 +8,7 @@ RUN apt install -y \
     fuse 
 
 RUN addgroup --system --gid 1001 gfs
-RUN useradd --uid 1001 --gid 1001 gfs -p gfsgfs
+RUN useradd --uid 1001 --gid 1001 gfs -p gfsgfs; echo 'gfs:gfsgfs' | chpasswd
 RUN adduser gfs sudo
 
 # ENV GFSAPI_HOST=10.88.88.183
