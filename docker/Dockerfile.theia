@@ -3,8 +3,11 @@
 # to find an alternative. There is a replacement build repo set up on quay that we 
 # can use until there is something official again.
 # See also https://github.com/theia-ide/theia-apps/issues/496
-# FROM theiaide/theia:latest
-FROM quay.io/zowe-explorer/theia:1.18.0
+# FROM theiaide/theia:latest # 1.7
+# FROM quay.io/zowe-explorer/theia:1.18.0 # Alpine 3.11, Python 3.8.10
+# FROM quay.io/zowe-explorer/theia:1.24.0 # Alpine 3.11, Python 3.8.10
+# FROM quay.io/zowe-explorer/theia:1.25.0 # Alpine 3.15, Python 3.9.18
+FROM quay.io/zowe-explorer/theia:1.25.0
 
 USER root
 
