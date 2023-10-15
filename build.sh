@@ -16,5 +16,6 @@ image() {
     docker push $LATEST_IMAGE
 }
 
-image "alpine"
-image "debian"
+# image "alpine"
+# image "debian"
+image "theia"
