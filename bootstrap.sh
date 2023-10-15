@@ -12,12 +12,10 @@ GFS_MOUNTPOINT="/gfs"
 GFSAPI_HOST=${GFSAPI_HOST:-gfs-api}
 GFSAPI_PORT=${GFSAPI_PORT:-5000}
 
-python \
+sudo chmod a+rwx /dev/fuse
+
+sudo python3 \
     /gfsfuse/src/py/main.py \
     $GFS_MOUNTPOINT \
     $GFSAPI_HOST \
     $GFSAPI_PORT
-
-# /gfsfuse/src/py/gfsfuse/gfsfuse.py \
-#     $GFSAPI_USER \
-#     $GFSAPI_PASSWORD

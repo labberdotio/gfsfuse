@@ -2,7 +2,6 @@ FROM python:3.6.12-alpine3.11
 
 RUN apk update && \
     apk add \
-        doas \
         py3-pip \
         py3-gobject3 \
         libblockdev-dev \
@@ -11,14 +10,23 @@ RUN apk update && \
         build-base \
         udev 
 
+# Install FUSE
+RUN apk add --update \
+	sudo \
+    sshfs \
+    fuse-dev
+
 # RUN addgroup --system --gid 1001 gfs
 RUN addgroup -S gfs -g 1001
 
 # RUN useradd --uid 1001 --gid 1001 gfs -p gfsgfs
 RUN adduser -S gfs -u 1001 -G gfs; echo 'gfs:gfsgfs' | chpasswd
 
-RUN mkdir -p /etc/doas.d/
-RUN echo 'permit gfs as root' > /etc/doas.d/doas.conf
+# RUN adduser gfs sudo
+# RUN adduser gfs fuse
+RUN adduser gfs wheel
+# RUN echo '%wheel ALL=(ALL) ALL' > /etc/sudoers.d/wheel
+RUN echo '%wheel ALL=(ALL) NOPASSWD: ALL' > /etc/sudoers.d/wheel
 
 # ENV GFSAPI_HOST=10.88.88.183
 # ENV GFSAPI_USER=
