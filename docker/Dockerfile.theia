@@ -1,5 +1,10 @@
-
-FROM theiaide/theia:latest
+# The version of Theia used so far, 1.7, is quite old and it is time to upgrade it. 
+# Now it seems like the official theiaide repo is gone from Docker Hub, so we need 
+# to find an alternative. There is a replacement build repo set up on quay that we 
+# can use until there is something official again.
+# See also https://github.com/theia-ide/theia-apps/issues/496
+# FROM theiaide/theia:latest
+FROM quay.io/zowe-explorer/theia:1.18.0
 
 USER root
 
