@@ -23,3 +23,4 @@ image "theia"
 LATEST_THEIA_IMAGE="${LOCAL_REGISTRY}/gfs-fuse:theia-latest"
 LATEST_IMAGE="${LOCAL_REGISTRY}/gfs-fuse:latest"
 docker tag $LATEST_THEIA_IMAGE $LATEST_IMAGE
+docker push $LATEST_IMAGE
