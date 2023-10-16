@@ -9,12 +9,5 @@ BASE="alpine"
 CONTAINER_NAME="gfsfuse"
 LATEST_IMAGE="${LOCAL_REGISTRY}/gfs-fuse:${BASE}-latest"
 
-# 
-docker run \
-	-e GFSAPI_HOST='gfs.labber.io' \
-	-e GFSAPI_PORT='80' \
-	--add-host gfs.labber.io:10.88.88.191 \
-	--rm -it \
-	--privileged --device /dev/fuse --cap-add SYS_ADMIN \
-	--name ${CONTAINER_NAME} \
-	--entrypoint sh ${LATEST_IMAGE}
+docker kill ${CONTAINER_NAME} || true
+docker rm ${CONTAINER_NAME} || true
