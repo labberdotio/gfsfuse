@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -e
 
 LOCAL_REGISTRY="${LOCAL_REGISTRY:-buildregistry.localdomain}"
