@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 CONTAINER_IP=$(cat /etc/hosts | grep 172 | cut -f 1 -d$'\t')
 echo "Found IP of container: $CONTAINER_IP"
