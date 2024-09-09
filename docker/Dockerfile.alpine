@@ -1,4 +1,6 @@
-FROM python:3.6.12-alpine3.11
+# FROM python:3.6.12-alpine3.11
+# FROM python:3.8.7-alpine3.11
+FROM python:3.9.15-alpine3.15
 
 RUN apk update && \
     apk add \
@@ -10,10 +12,36 @@ RUN apk update && \
         build-base \
         udev 
 
-ADD . /gfsfuse
-RUN pip3 install -r /gfsfuse/requirements.txt
-# mount point
-RUN mkdir /gfs
-WORKDIR gfsfuse
+# Install FUSE
+RUN apk add --update \
+	sudo \
+    sshfs \
+    fuse-dev
 
-CMD ["bash", "/gfsfuse/docker_start_gfsfuse.sh"]
+# RUN addgroup --system --gid 1001 gfs
+RUN addgroup -S gfs -g 1001
+
+# RUN useradd --uid 1001 --gid 1001 gfs -p gfsgfs
+RUN adduser -S gfs -u 1001 -G gfs; echo 'gfs:gfsgfs' | chpasswd
+
+# RUN adduser gfs sudo
+# RUN adduser gfs fuse
+RUN adduser gfs wheel
+# RUN echo '%wheel ALL=(ALL) ALL' > /etc/sudoers.d/wheel
+RUN echo '%wheel ALL=(ALL) NOPASSWD: ALL' > /etc/sudoers.d/wheel
+
+# ENV GFSAPI_HOST=10.88.88.183
+# ENV GFSAPI_USER=
+# ENV GFSAPI_PASSWORD=
+ENV GFSAPI_HOST=gfs-api
+ENV GFSAPI_PORT=5000
+ENV GFS_MOUNTPOINT="/gfs"
+RUN mkdir -p $GFS_MOUNTPOINT; chown gfs:gfs $GFS_MOUNTPOINT
+
+COPY . /gfsfuse
+RUN pip3 install -r /gfsfuse/requirements.txt
+RUN chown -R gfs:gfs /gfsfuse
+
+USER gfs
+
+ENTRYPOINT ["/gfsfuse/bootstrap.sh"]

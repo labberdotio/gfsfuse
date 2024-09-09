@@ -1,0 +1,54 @@
+# The version of Theia used so far, 1.7, is quite old and it is time to upgrade it. 
+# Now it seems like the official theiaide repo is gone from Docker Hub, so we need 
+# to find an alternative. There is a replacement build repo set up on quay that we 
+# can use until there is something official again.
+# See also https://github.com/theia-ide/theia-apps/issues/496
+# FROM theiaide/theia:latest # 1.7
+# FROM quay.io/zowe-explorer/theia:1.18.0 # Alpine 3.11, Python 3.8.10
+# FROM quay.io/zowe-explorer/theia:1.24.0 # Alpine 3.11, Python 3.8.10
+# FROM quay.io/zowe-explorer/theia:1.25.0 # Alpine 3.15, Python 3.9.18
+FROM quay.io/zowe-explorer/theia:1.25.0
+
+USER root
+
+RUN apk update && \
+    apk add \
+        py3-pip \
+        py3-gobject3 \
+        libblockdev-dev \
+        py3-libblockdev \
+        py3-rtslib \
+        build-base \
+        udev 
+
+# Install FUSE
+RUN apk add --update \
+	sudo \
+    sshfs \
+    fuse-dev
+
+# RUN adduser theia sudo
+# RUN adduser theia fuse
+RUN adduser theia wheel
+# RUN echo '%wheel ALL=(ALL) ALL' > /etc/sudoers.d/wheel
+RUN echo '%wheel ALL=(ALL) NOPASSWD: ALL' > /etc/sudoers.d/wheel
+
+# ENV GFSAPI_HOST=10.88.88.183
+# ENV GFSAPI_USER=
+# ENV GFSAPI_PASSWORD=
+ENV GFSAPI_HOST=gfs-api
+ENV GFSAPI_PORT=5000
+ENV GFS_MOUNTPOINT="/gfs"
+RUN mkdir -p $GFS_MOUNTPOINT; chown theia:theia $GFS_MOUNTPOINT
+
+COPY . /gfsfuse
+# Addl. python 
+# RUN pip install -r ./requirements.txt
+# RUN pip3 install -r ./requirements.txt
+RUN pip3 install -r /gfsfuse/requirements.txt
+RUN chown -R theia:theia /gfsfuse
+
+USER theia
+WORKDIR /home/project
+
+ENTRYPOINT ["/gfsfuse/bootstraptheia.sh"]
