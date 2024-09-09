@@ -97,7 +97,7 @@ pip 20.1.1 from .../env/lib/python3.6/site-packages/pip (python 3.6)
 
 > pipenv shell
 > pipenv --venv
-.../.local/share/virtualenvs/gremlinfs-QNFneZ6P
+.../.local/share/virtualenvs/gfsfuse...
 
 # Install dependencies
 > pipenv install -r ./requirements.txt

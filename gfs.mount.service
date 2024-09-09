@@ -4,12 +4,12 @@ Description=gfsmount
 [Service]
 # If using a non root user, then
 # make sure mount dir is writable as user
-User=bots
+User=gfs
 RestartSec=1
 Type=forking
 TimeoutStartSec=0
 Restart=always
-ExecStart=/gremlinfs/systemd_start_gremlinfs.sh 
+ExecStart=/gfsfuse/systemd_start_gfsfuse.sh 
 
 [Install]
 WantedBy=multi-user.target

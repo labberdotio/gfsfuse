@@ -1,11 +1,11 @@
 #!/bin/bash
 set -e
 
-CONTAINER_NAME="gremlinfs-dev"
+CONTAINER_NAME="gfs-fuse-dev"
 GIT_SHA=$(git rev-parse HEAD | cut -c 1-8)
-IMAGE="jeremykuhnash/$CONTAINER_NAME:$GIT_SHA"
-IMAGE_LATEST="jeremykuhnash/$CONTAINER_NAME:latest"
-COMMON_NETWORK="botcanics"
+IMAGE="$CONTAINER_NAME:$GIT_SHA"
+IMAGE_LATEST="$CONTAINER_NAME:latest"
+COMMON_NETWORK="gfs"
 
 SOURCE="${BASH_SOURCE[0]}"
 while [ -h "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symlink
