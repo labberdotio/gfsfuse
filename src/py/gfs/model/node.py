@@ -29,24 +29,7 @@ class GFSNode(GFSBase):
         return parts.get(field, default)
 
     @classmethod
-    def label(clazz, name, label, fstype = "file", default = "vertex"):
-        # if not name:
-        #     return default
-        # if not label:
-        #     return default
-        # for label_config in GremlinFS.operations().config("labels", []):
-        #     if "type" in label_config and label_config["type"] == fstype:
-        #         compiled = None
-        #         if "compiled" in label_config:
-        #             compiled = label_config["compiled"]
-        #         else:
-        #             compiled = GremlinFS.operations().utils().recompile(label_config["pattern"])
-        # 
-        #         if compiled:
-        #             if compiled.search(name):
-        #                 label = label_config.get("label", default)
-        #                 break
-        # 
+    def label(clazz, name, label, fstype = "file", default = None):
         return label
 
     @classmethod
@@ -124,156 +107,28 @@ class GFSNode(GFSBase):
     # 
 
     def toid(self, short = False):
-        node = self
-        mapid = node.get('id', None)
-        mapuuid = node.get('uuid', None)
-        maplabel = node.get('label', None)
-        mapname = node.get('name', None)
-
-        if mapname:
-            mapname = mapname.strip().replace("\t", "").replace("\t", "")
-
-        if mapname and mapuuid and maplabel and not short:
-            if maplabel == "vertex":
-                return "%s@%s" % (mapname, mapuuid)
-            else:
-                return "%s@%s@%s" % (mapname, maplabel, mapuuid)
-
-        elif mapname and maplabel and short:
-            # Mimic traditional filesystem extensions
-            if maplabel == "vertex":
-                return mapname
-            elif maplabel == self.config("folder_label"):
-                return mapname
-            else:
-                return mapname + "." + maplabel
-
-        elif mapname and maplabel:
-            # Mimic traditional filesystem extensions
-            if maplabel == "vertex":
-                return mapname
-            elif maplabel == self.config("folder_label"):
-                return mapname
-            else:
-                return mapname + "." + maplabel
-
-        elif mapname:
-            return mapname
-
-        elif mapuuid:
-            return mapuuid
+        pass
 
     def matches(self, inmap):
-        node = self
-        mapid = inmap.get('id', None)
-        mapuuid = inmap.get('uuid', None)
-        maplabel = inmap.get('label', None)
-        mapname = inmap.get('name', None)
-
-        if mapname and mapname == node.get('name', None) and \
-            maplabel and maplabel == node.get('label', None):
-            return True
-
-        return False
+        pass
 
     def hasProperty(self, name, prefix = None):
-
-        node = self
-
-        if not node:
-            return False
-
-        data = node.has(name, prefix = prefix)
-        if not data:
-            return False
-
-        return True
+        pass
 
     def getProperty(self, name, default = None, encoding = None, prefix = None):
-
-        node = self
-
-        if not node:
-            return default
-
-        data = node.get(name, None, prefix = prefix)
-        if not data:
-            return default
-
-        # if encoding:
-        #     data = self.utils().decode(data, encoding)
-        # 
-        # elif data.startswith("base64:"):
-        #     data = self.utils().decode(data, "base64")
-        # 
-        # return data
-
-        # Rely on encoding prefix
-        return self.utils().decode(data)
+        pass
 
     def setProperty(self, name, data = None, encoding = None, prefix = None):
-
-        node = self
-
-        if not node:
-            return
-
-        if not data:
-            data = ""
-
-        nodeid = node.get("id")
-
-        if encoding:
-            data = self.utils().encode(data, encoding)
-
-        node.set(name, data, prefix = prefix)
-        self.api().setVertexProperty(
-            nodeid,
-            name,
-            data
-        )
-
-        return data
+        pass
 
     def unsetProperty(self, name, prefix = None):
-
-        node = self
-
-        if not node:
-            return
-
-        nodeid = node.get("id")
-
-        node.set(name, None, prefix = prefix)
-        self.api().unsetVertexProperty(
-            nodeid,
-            name,
-            prefix = prefix
-        )
+        pass
 
     def setProperties(self, properties, prefix = None):
-
-        node = self
-
-        if not node:
-            return
-
-        nodeid = node.get("id")
-
-        self.api().setVertexProperties(
-            nodeid,
-            name,
-            prefix = prefix
-        )
+        pass
 
     def getProperties(self, prefix = None):
-
-        node = self
-
-        properties = {}
-        properties.update(node.all(prefix))
-
-        return properties
+        pass
 
     def readProperty(self, name, default = None, encoding = None, prefix = None):
         return self.getProperty(name, default, encoding = encoding, prefix = prefix)

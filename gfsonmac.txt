@@ -9,7 +9,7 @@
 
 # get FUSE/fuselib from here https://osxfuse.github.io
 # will be installed to: /usr/local/lib/, /usr/local/include/
-> cd gremlinfs
+> cd gfsfuse
 > pipenv shell
 > pip install -r ./requirements.txt
 

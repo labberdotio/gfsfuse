@@ -13,11 +13,11 @@ GFSAPI_HOST=${GFSAPI_HOST:-gfs-api}
 GFSAPI_PORT=${GFSAPI_PORT:-5000}
 
 python \
-    /gremlinfs/src/py/main.py \
+    /gfsfuse/src/py/main.py \
     $GFS_MOUNTPOINT \
     $GFSAPI_HOST \
     $GFSAPI_PORT
 
-# /gremlinfs/src/py/gremlinfs/gremlinfs.py \
+# /gfsfuse/src/py/gfsfuse/gfsfuse.py \
 #     $GFSAPI_USER \
 #     $GFSAPI_PASSWORD

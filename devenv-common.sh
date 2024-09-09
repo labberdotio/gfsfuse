@@ -1,4 +1,4 @@
-export COMMON_NETWORK="botcanics"
+export COMMON_NETWORK="gfs"
 export GFS_VOLUME="gfs"
 
 CMD="mkdir -p /gfs"

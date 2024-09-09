@@ -10,10 +10,10 @@ RUN apk update && \
         build-base \
         udev 
 
-ADD . /gremlinfs
-RUN pip3 install -r /gremlinfs/requirements.txt
+ADD . /gfsfuse
+RUN pip3 install -r /gfsfuse/requirements.txt
 # mount point
 RUN mkdir /gfs
-WORKDIR gremlinfs
+WORKDIR gfsfuse
 
-CMD ["bash", "/gremlinfs/docker_start_gremlinfs.sh"]
+CMD ["bash", "/gfsfuse/docker_start_gfsfuse.sh"]

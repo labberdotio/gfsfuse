@@ -6,11 +6,11 @@ RUN apt install -y \
     libfuse-dev \
     fuse 
 
-COPY . /gremlinfs
-RUN pip3 install -r /gremlinfs/requirements.txt
+COPY . /gfsfuse
+RUN pip3 install -r /gfsfuse/requirements.txt
 
-RUN addgroup --system --gid 1001 bots
-RUN useradd --uid 1001 --gid 1001 bots -p botsbots
+RUN addgroup --system --gid 1001 gfs
+RUN useradd --uid 1001 --gid 1001 gfs -p gfsgfs
 
 # ENV GFSAPI_HOST=10.88.88.183
 # ENV GFSAPI_USER=
@@ -18,4 +18,4 @@ RUN useradd --uid 1001 --gid 1001 bots -p botsbots
 ENV GFSAPI_HOST=gfs-api
 ENV GFSAPI_PORT=5000
 
-ENTRYPOINT ["/gremlinfs/bootstrap.sh"]
+ENTRYPOINT ["/gfsfuse/bootstrap.sh"]
